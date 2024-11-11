@@ -174,6 +174,7 @@ func (s scanner) FromData(ctx context.Context, verify bool, data []byte) (result
 				Redacted:     resIDMatch,
 				RawV2:        []byte(resIDMatch + resSecretMatch),
 				ExtraData: map[string]string{
+					"AWS-SECRET-KEY":    resSecretMatch,
 					"resource_type": resourceTypes[idMatch[2]],
 				},
 			}
