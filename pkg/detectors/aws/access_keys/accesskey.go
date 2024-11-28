@@ -104,12 +104,15 @@ func (s scanner) FromData(ctx context.Context, verify bool, data []byte) (result
 				continue
 			}
 
+			
+			resSecretMatch := strings.TrimSpace(string(secretMatch[1]))
 			s1 := detectors.Result{
 				DetectorType: detectorspb.DetectorType_AWS,
 				Raw:          []byte(idMatch),
 				Redacted:     idMatch,
-				RawV2:        []byte(idMatch + ":" + secretMatch),
+				RawV2:        []byte(idMatch + ":" + string(secretMatch)),
 				ExtraData: map[string]string{
+					"AWS-SECRET-KEY":    resSecretMatch,
 					"resource_type": aws.ResourceTypes[idMatch[:4]],
 				},
 			}
